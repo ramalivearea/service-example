@@ -1,27 +1,17 @@
 export async function status(ctx: Context, next: () => Promise<any>) {
   const {
     state: { code },
-    clients: { status: statusClient },
+    clients: { oms },
   } = ctx
 
-  console.info('Received code:', code)
+   //const data = await catalog.getSkuById(code.toString())
+   //const data = await catalog.seller("1")
 
-  const statusResponse = await statusClient.getStatus(code)
+  console.log("%%%%%%%%%%%%"+oms.order("1139741935562-01"))
+  
+  const data = await oms.order(code.toString())
 
-  console.info('Status response:', statusResponse)
-
-  const {
-    headers,
-    data,
-    status: responseStatus,
-  } = await statusClient.getStatusWithHeaders(code)
-
-  console.info('Status headers', headers)
-  console.info('Status data:', data)
-
-  ctx.status = responseStatus
   ctx.body = data
-  ctx.set('Cache-Control', headers['cache-control'])
 
   await next()
 }

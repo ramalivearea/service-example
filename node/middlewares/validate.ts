@@ -7,7 +7,8 @@ export async function validate(ctx: Context, next: () => Promise<any>) {
     },
   } = ctx
 
-  console.info('Received params:', params)
+  console.log(ctx.vtex.authToken)
+  console.log('Received params:', params)
 
   const { code } = params
 
